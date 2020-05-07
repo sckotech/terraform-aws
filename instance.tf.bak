@@ -1,0 +1,14 @@
+resource "aws_instance" "webserver" {
+  ami           = "ami-085925f297f89fce1"
+  instance_type = "t2.micro"
+  availability_zone =
+  disable_api_termination = true
+  associate_public_ip_address = true
+  key_name = "terraform"
+  security_groups = ["aws_security_group.myvpc-sg.name"]
+  user_data = "{file("httpd.sh")}"
+
+  tags = {
+    Name = "webserver"
+  }
+}
